@@ -7,7 +7,7 @@ package neuralnetwork;
 
 /**
  *
- * @author jose
+ * @author jose y lfundaro
  */
 public class BackPropagation {
 
