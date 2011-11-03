@@ -38,11 +38,11 @@ public class BackPropagation {
 
         /* End XOR INPUT <---- Have to be erased */
 
-        
-        NeuralNetwork nn = new NeuralNetwork(2,2,x,y);
+        double eta = 0.5;
+        NeuralNetwork nn = new NeuralNetwork(2,2,1,x,y,eta);
         nn.initialize();
         nn.run();
-        System.out.println("");
+        System.out.println("OK");
 
     }
 
