@@ -38,6 +38,10 @@ public class BackPropagation {
 
         /* End XOR INPUT <---- Have to be erased */
 
+        FileReader fr = new FileReader("500.txt");
+        fr.read();
+        double [][] X = fr.returnX();
+
         double eta = 0.5;
         NeuralNetwork nn = new NeuralNetwork(2,2,1,x,y,eta);
         nn.initialize();
