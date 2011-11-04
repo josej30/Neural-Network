@@ -47,33 +47,40 @@ public class BackPropagation {
 
         
         double eta = 0.1;
-        int runs = 5;
+        int runs = 10000;
 
         /*
          * 2 = neurons on the hidden layer
          * 2 = size a single input example
          * 1 = neuron on the output layer
          */
-        NeuralNetwork nn = new NeuralNetwork(2,2,1,X,Y,eta);
+        NeuralNetwork nn = new NeuralNetwork(4,2,1,X,Y,eta);
 
         nn.initialize();    // Randomizing the weights
         nn.run(runs);       // Running the algorithm with runs iterations
 
         System.out.println("Running the Neural Network "+runs+" iterations\n");
 
-        // Checking for right answers
-        nn.feedforward(3);
-        System.out.println("Ej[3]: "+nn.net_out[0]+" -> "+Y[3]);
-        nn.feedforward(110);
-        System.out.println("Ej[110]: "+nn.net_out[0]+" -> "+Y[110]);
-        nn.feedforward(284);
-        System.out.println("Ej[284]: "+nn.net_out[0]+" -> "+Y[284]);
-        nn.feedforward(333);
-        System.out.println("Ej[333]: "+nn.net_out[0]+" -> "+Y[333]);
-        nn.feedforward(401);
-        System.out.println("Ej[401]: "+nn.net_out[0]+" -> "+Y[401]);
-        nn.feedforward(5);
-        System.out.println("Ej[5]: "+nn.net_out[0]+" -> "+Y[5]);
+        int right = 0;
+        int wrong = 0;
+
+        for (int i=0; i<X.length; i++) {
+
+            // Feed forward for the examples
+            nn.feedforward(i);
+
+            // Neural Network output
+            double ans = nn.net_out[0];
+
+            if (((ans > 0.5) && (Y[i]==1.0)) || ((ans < 0.5) && (Y[i]==0.0)))
+                right++;
+            else
+                wrong++;
+
+        }
+
+        System.out.println("Right Classifications: "+right+ "("+(float)right/(float)X.length*100+"%)");
+        System.out.println("Wrong Classifications: "+wrong+ "("+(float)wrong/(float)X.length*100+"%)");
 
 
     }

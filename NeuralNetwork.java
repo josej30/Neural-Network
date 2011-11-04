@@ -49,7 +49,7 @@ public class NeuralNetwork {
         Random randomGenerator = new Random();
         
         // Initializing the w array for the hidden layer output
-        for (int i = 0; i<this.num_neurons; i++){
+        for (int i = 0; i<this.num_neurons+1; i++){
             for(int j = 0; j < this.netOutputSize; j++){
                 double sign = randomGenerator.nextDouble();
                 if (sign > 0.5)
