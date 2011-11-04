@@ -62,11 +62,16 @@ public class FileReader {
     }
 
     // Returns the Y vector to be used in the backpropagation algorithm
-    String[] returnY(){
-        String [] y = new String[this.file.size()];
+    double[] returnY(){
+        double [] y = new double[this.file.size()];
         for (int i = 0; i < this.file.size(); i++){
             String [] temp = file.get(i);
-            y[i] = temp[temp.length-1];
+            // A -> 0
+            // B -> 1
+            if (temp[temp.length-1].equals("A"))
+                y[i] = 0;
+            else
+                y[i] = 1;
         }
         return y;
     }

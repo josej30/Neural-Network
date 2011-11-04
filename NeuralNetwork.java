@@ -38,7 +38,7 @@ public class NeuralNetwork {
         this.x_in = x;
         this.x_out = new double[num_n][netOutputSize];
         this.y = y;
-        this.wout = new double[num_n][netOutputSize+1];
+        this.wout = new double[num_n+1][netOutputSize];
         this.win = new double[num_n][size_i+1];
         this.eta = eta;
         this.net_out = new double[netOutputSize];
@@ -78,7 +78,7 @@ public class NeuralNetwork {
                 feedforward(example);
 
                 // Backpropagating the errors
-                errorTermNO(net_out,y);
+                errorTermNO(example);
                 errorTermHU();
 
                 // Updating the weights
@@ -104,7 +104,7 @@ public class NeuralNetwork {
             }
             // Adding the threshold
             net += this.win[i][this.size_in];
-            x_out[i][0] = sigmoid(net);
+            this.x_out[i][0] = sigmoid(net);
         }
 
         // Running the output(s) neuron(s)
@@ -119,7 +119,7 @@ public class NeuralNetwork {
             netfinal += this.wout[this.netOutputSize][i];
 
             // Saving the network output
-            net_out[i] = sigmoid(netfinal);
+            this.net_out[i] = sigmoid(netfinal);
 
         }
 
@@ -130,11 +130,11 @@ public class NeuralNetwork {
         return (1/( 1 + Math.pow(Math.E,(-1*net))));
     }
     
-    // Error term for a network output.
-    void errorTermNO(double[] output, double[] target){
-        for(int i = 0; i < this.netOutputSize; i++){
-            this.errorTermNOVector[i] = output[i]*(1 - output[i])*
-                        (target[i] - output[i]);
+    // Error term for a network output
+    void errorTermNO(int example){
+        for(int k = 0; k < this.netOutputSize; k++){
+            this.errorTermNOVector[k] = this.net_out[k]*(1 - this.net_out[k])*
+                        (this.y[example] - this.net_out[k]);
         }
     }
     
@@ -146,7 +146,7 @@ public class NeuralNetwork {
             for(int j = 0; j < this.netOutputSize; j++){
                 sum += this.wout[i][j]*this.errorTermNOVector[j];
             }
-            this.errorTermHUVector[i] = x_out[i][0]*(1-x_out[i][0])*sum;
+            this.errorTermHUVector[i] = this.x_out[i][0]*(1-this.x_out[i][0])*sum;
         }
     }
     
@@ -154,13 +154,13 @@ public class NeuralNetwork {
     void updateNetworkWeights(double x_input[]){
         
         // Start first with output unit weights
-        for(int i = 0; i < this.num_neurons; i++){
-            for(int j = 0; j < this.netOutputSize; j++){
+        for(int j = 0; j < this.netOutputSize; j++){
+            for(int i = 0; i < this.num_neurons; i++){
                 this.wout[i][j] += calcDeltaWeight(this.errorTermNOVector[j],
                         this.x_out[i][j]);
-                // Modifying the threshold for the output neurons
-                this.wout[i][this.netOutputSize-1] = calcDeltaWeight(this.errorTermNOVector[j],1);
             }
+            // Modifying the threshold for the output neurons
+            this.wout[this.num_neurons][j] += calcDeltaWeight(this.errorTermNOVector[j],1);
         }
 
         // Now proceed with input unit weights
@@ -168,9 +168,9 @@ public class NeuralNetwork {
             for(int j = 0; j < this.size_in; j++){
                 this.win[i][j] += calcDeltaWeight(this.errorTermHUVector[i],
                         x_input[j]);
-                // Modifying the threshold for the input neurons
-                this.win[i][this.size_in-1] = calcDeltaWeight(this.errorTermHUVector[i],1);
             }
+            // Modifying the threshold for the input neurons
+            this.win[i][this.size_in] += calcDeltaWeight(this.errorTermHUVector[i],1);
         }
     }
     
