@@ -29,7 +29,7 @@ public class NeuralNetwork {
     public double eta;                  // Learning rate
     
     public NeuralNetwork( int num_n, int size_i, int netOutputSize,
-            double [][] x, double [] y, double eta){
+        double [][] x, double [] y, double eta){
         this.num_neurons = num_n;
         this.size_in = size_i;
         this.netOutputSize = netOutputSize;
@@ -56,8 +56,8 @@ public class NeuralNetwork {
         }
         
         // Initializing the w array for the hidden layer input
-        for (int i=0;i<this.win.length;i++)
-            for (int j=0;j<this.win[i].length;j++)
+        for (int i = 0; i < this.num_neurons; i++)
+            for (int j = 0; j < this.size_in + 1; j++)
                 win[i][j] = randomGenerator.nextDouble();
         
     }
