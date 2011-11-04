@@ -51,18 +51,24 @@ public class FileReader {
 
     // Returns the X input matrix to be used in the backpropagation algorithm
     double[][] returnX(){
-
         double [][] x = new double[this.file.size()][this.x_length-1];
-
         for (int i = 0; i < this.file.size(); i++){
             String [] temp = file.get(i);
             for (int j = 0; j<temp.length-1; j++){
                 x[i][j] = Double.parseDouble(temp[j]);
             }
         }
-
         return x;
+    }
 
+    // Returns the Y vector to be used in the backpropagation algorithm
+    String[] returnY(){
+        String [] y = new String[this.file.size()];
+        for (int i = 0; i < this.file.size(); i++){
+            String [] temp = file.get(i);
+            y[i] = temp[temp.length-1];
+        }
+        return y;
     }
 
 }

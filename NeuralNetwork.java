@@ -63,56 +63,66 @@ public class NeuralNetwork {
     }
     
     // Running the backpropagation algorithm
-    void run(){
+    void run(int runs){
 
         int its = 0;
-        int example = 0; // Example number
 
         // Running until the network classify correctly all the examples
         // from the training set
-        //while (!stopcondition) {
+        while (its!=runs) {
 
-            // Running all the hidden layer neurons
+            // Running all the examples on the training set
+            for (int example = 0; example<this.x_in.length; example++) {
 
-            // Loop over all the neurons in the hidden layer
-            for (int i = 0; i<this.num_neurons; i++){
-                double net = 0;
-                // Loop over all the inputs/weights
-                for (int j = 0; j<this.size_in; j++){
-                    net += this.x_in[example][j]*win[i][j];
-                }
-                // Adding the threshold
-                net += this.win[i][this.win.length-1];
-                x_out[i][0] = sigmoid(net);
-            }
+                // Running the neural network
+                feedforward(example);
 
-            // Running the output(s) neuron(s)
+                // Backpropagating the errors
+                errorTermNO(net_out,y);
+                errorTermHU();
 
-            for (int z = 0; z<this.netOutputSize; z++){
-
-                double netfinal = 0;
-                // Loop over all the output layer neurons results
-                for (int i = 0; i<this.x_out.length; i++){
-                    netfinal += this.x_out[i][0]*this.wout[0][i];
-                }
-                netfinal += this.wout[0][this.wout.length-1];
-
-                // Saving the network output
-                net_out[z] = sigmoid(netfinal);
+                // Updating the weights
+                updateNetworkWeights(x_in[example]);
 
             }
 
-            // Checking if the output is correct
-            ///////////////// Condition here
+            its++;
 
-            // Backpropagating the errors
-            errorTermNO(net_out,y);
-            errorTermHU();
+        } // Terminating condition reached
+    }
 
-            // Updating the weights
-            updateNetworkWeights(x_in[example]);
-            
-        //} // Terminating condition reached
+    void feedforward(int example) {
+
+        // Running all the hidden layer neurons
+
+        // Loop over all the neurons in the hidden layer
+        for (int i = 0; i<this.num_neurons; i++){
+            double net = 0;
+            // Loop over all the inputs/weights
+            for (int j = 0; j<this.size_in; j++){
+                net += this.x_in[example][j]*win[i][j];
+            }
+            // Adding the threshold
+            net += this.win[i][this.size_in];
+            x_out[i][0] = sigmoid(net);
+        }
+
+        // Running the output(s) neuron(s)
+
+        for (int i = 0; i<this.netOutputSize; i++){
+
+            double netfinal = 0;
+            // Loop over all the output layer neurons results
+            for (int j = 0; j<this.num_neurons; j++){
+                netfinal += this.x_out[j][i]*this.wout[j][i];
+            }
+            netfinal += this.wout[this.netOutputSize][i];
+
+            // Saving the network output
+            net_out[i] = sigmoid(netfinal);
+
+        }
+
     }
     
     // Sigmoidal Function
@@ -142,21 +152,24 @@ public class NeuralNetwork {
     
     // Updates each network weights
     void updateNetworkWeights(double x_input[]){
+        
         // Start first with output unit weights
-        for(int j = 0; j < this.netOutputSize; j++){
-            for(int i = 0; i < this.num_neurons; i++){
-                this.wout[j][i] += calcDeltaWeight(this.errorTermNOVector[j],
+        for(int i = 0; i < this.num_neurons; i++){
+            for(int j = 0; j < this.netOutputSize; j++){
+                this.wout[i][j] += calcDeltaWeight(this.errorTermNOVector[j],
                         this.x_out[i][j]);
+                // Modifying the threshold for the output neurons
+                this.wout[i][this.netOutputSize-1] = calcDeltaWeight(this.errorTermNOVector[j],1);
             }
-            // Modifying the threshold for the output neurons
-            this.wout[j][this.num_neurons-1] = calcDeltaWeight(this.errorTermNOVector[j],
-                        1);
         }
+
         // Now proceed with input unit weights
-        for(int j = 0; j < this.num_neurons; j++){
-            for(int i = 0; i < this.size_in; i++){
-                this.win[j][i] += calcDeltaWeight(this.errorTermHUVector[j],
-                        x_input[i]);
+        for(int i = 0; i < this.num_neurons; i++){
+            for(int j = 0; j < this.size_in; j++){
+                this.win[i][j] += calcDeltaWeight(this.errorTermHUVector[i],
+                        x_input[j]);
+                // Modifying the threshold for the input neurons
+                this.win[i][this.size_in-1] = calcDeltaWeight(this.errorTermHUVector[i],1);
             }
         }
     }

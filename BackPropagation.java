@@ -38,15 +38,47 @@ public class BackPropagation {
 
         /* End XOR INPUT <---- Have to be erased */
 
-        FileReader fr = new FileReader("500.txt");
+        // Reading the input file
+        FileReader fr = new FileReader("2000.txt");
         fr.read();
+        // Retrieving the x and y vectors
         double [][] X = fr.returnX();
+        String [] Y = fr.returnY();
 
+
+        
         double eta = 0.5;
+        int runs = 100;
+
+        /*
+         * 2 = neurons on the hidden layer
+         * 2 = size a single input example
+         * 1 = neuron on the output layer
+         */
         NeuralNetwork nn = new NeuralNetwork(2,2,1,x,y,eta);
-        nn.initialize();
-        nn.run();
-        System.out.println("OK");
+
+        nn.initialize();    // Randomizing the weights
+        //nn.run(runs);       // Running the algorithm with runs iterations
+
+        System.out.println("Running the Neural Network "+runs+" iterations\n");
+
+        // Checking for right answers
+        nn.feedforward(0);
+        System.out.println("Network Output [0]: "+nn.net_out[0]);
+        System.out.println("Expected Output [0]: "+y[0]);
+        System.out.println("-----");
+        nn.feedforward(1);
+        System.out.println("Network Output [1]: "+nn.net_out[0]);
+        System.out.println("Expected Output [1]: "+y[1]);
+        System.out.println("-----");
+        nn.feedforward(2);
+        System.out.println("Network Output [2]: "+nn.net_out[0]);
+        System.out.println("Expected Output [2]: "+y[2]);
+        System.out.println("-----");
+        nn.feedforward(3);
+        System.out.println("Network Output [3]: "+nn.net_out[0]);
+        System.out.println("Expected Output [3]: "+y[3]);
+
 
     }
 
