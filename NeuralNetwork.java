@@ -29,7 +29,7 @@ public class NeuralNetwork {
     public double eta;                  // Learning rate
     
     public NeuralNetwork( int num_n, int size_i, int netOutputSize,
-            double [][] x, double [] y, double eta){
+        double [][] x, double [] y, double eta){
         this.num_neurons = num_n;
         this.size_in = size_i;
         this.netOutputSize = netOutputSize;
@@ -73,7 +73,6 @@ public class NeuralNetwork {
 
             // Running all the examples on the training set
             for (int example = 0; example<this.x_in.length; example++) {
-
                 // Running the neural network
                 feedforward(example);
 
@@ -96,24 +95,26 @@ public class NeuralNetwork {
         // Running all the hidden layer neurons
 
         // Loop over all the neurons in the hidden layer
-        for (int i = 0; i<this.num_neurons; i++){
-            double net = 0;
+        for (int i = 0; i < this.num_neurons; i++){
+            double net = 0.0;
             // Loop over all the inputs/weights
             for (int j = 0; j<this.size_in; j++){
                 net += this.x_in[example][j]*win[i][j];
             }
             // Adding the threshold
             net += this.win[i][this.size_in];
-            this.x_out[i][0] = sigmoid(net);
+            // Calculating "net" value for each hidden unit
+            for(int k = 0; k < this.netOutputSize; k++){
+                this.x_out[i][k] = sigmoid(net);
+            }
         }
 
         // Running the output(s) neuron(s)
+        for (int i = 0; i < this.netOutputSize; i++){
 
-        for (int i = 0; i<this.netOutputSize; i++){
-
-            double netfinal = 0;
+            double netfinal = 0.0;
             // Loop over all the output layer neurons results
-            for (int j = 0; j<this.num_neurons; j++){
+            for (int j = 0; j < this.num_neurons; j++){
                 netfinal += this.x_out[j][i]*this.wout[j][i];
             }
             // Adding the threshold
