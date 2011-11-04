@@ -45,10 +45,9 @@ public class BackPropagation {
         double [][] X = fr.returnX();
         double [] Y = fr.returnY();
 
-
         
-        double eta = 0.5;
-        int runs = 5;
+        double eta = 0.05;
+        int runs = 10000;
 
         /*
          * 2 = neurons on the hidden layer
@@ -58,26 +57,23 @@ public class BackPropagation {
         NeuralNetwork nn = new NeuralNetwork(2,2,1,X,Y,eta);
 
         nn.initialize();    // Randomizing the weights
-        //nn.run(runs);       // Running the algorithm with runs iterations
+        nn.run(runs);       // Running the algorithm with runs iterations
 
         System.out.println("Running the Neural Network "+runs+" iterations\n");
 
         // Checking for right answers
-        nn.feedforward(0);
-        System.out.println("Network Output [0]: "+nn.net_out[0]);
-        System.out.println("Expected Output [0]: "+Y[0]);
-        System.out.println("-----");
-        nn.feedforward(1);
-        System.out.println("Network Output [1]: "+nn.net_out[0]);
-        System.out.println("Expected Output [1]: "+Y[1]);
-        System.out.println("-----");
-        nn.feedforward(2);
-        System.out.println("Network Output [2]: "+nn.net_out[0]);
-        System.out.println("Expected Output [2]: "+Y[2]);
-        System.out.println("-----");
         nn.feedforward(3);
-        System.out.println("Network Output [3]: "+nn.net_out[0]);
-        System.out.println("Expected Output [3]: "+Y[3]);
+        System.out.println("Ej[3]: "+nn.net_out[0]+" -> "+Y[3]);
+        nn.feedforward(110);
+        System.out.println("Ej[110]: "+nn.net_out[0]+" -> "+Y[110]);
+        nn.feedforward(284);
+        System.out.println("Ej[284]: "+nn.net_out[0]+" -> "+Y[284]);
+        nn.feedforward(333);
+        System.out.println("Ej[333]: "+nn.net_out[0]+" -> "+Y[333]);
+        nn.feedforward(401);
+        System.out.println("Ej[401]: "+nn.net_out[0]+" -> "+Y[401]);
+        nn.feedforward(5);
+        System.out.println("Ej[5]: "+nn.net_out[0]+" -> "+Y[5]);
 
 
     }

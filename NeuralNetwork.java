@@ -56,8 +56,8 @@ public class NeuralNetwork {
         }
         
         // Initializing the w array for the hidden layer input
-        for (int i=0;i<this.win.length;i++)
-            for (int j=0;j<this.win[i].length;j++)
+        for (int i=0;i<this.num_neurons;i++)
+            for (int j=0;j<this.size_in+1;j++)
                 win[i][j] = randomGenerator.nextDouble();
         
     }
@@ -116,12 +116,15 @@ public class NeuralNetwork {
             for (int j = 0; j<this.num_neurons; j++){
                 netfinal += this.x_out[j][i]*this.wout[j][i];
             }
-            netfinal += this.wout[this.netOutputSize][i];
+            // Adding the threshold
+            netfinal += this.wout[this.num_neurons][i];
 
             // Saving the network output
             this.net_out[i] = sigmoid(netfinal);
 
         }
+
+        
 
     }
     
@@ -135,6 +138,7 @@ public class NeuralNetwork {
         for(int k = 0; k < this.netOutputSize; k++){
             this.errorTermNOVector[k] = this.net_out[k]*(1 - this.net_out[k])*
                         (this.y[example] - this.net_out[k]);
+            System.out.println(this.y[example] - this.net_out[k]);
         }
     }
     
