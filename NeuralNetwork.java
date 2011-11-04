@@ -124,9 +124,6 @@ public class NeuralNetwork {
             this.net_out[i] = sigmoid(netfinal);
 
         }
-
-        
-
     }
     
     // Sigmoidal Function
@@ -139,7 +136,6 @@ public class NeuralNetwork {
         for(int k = 0; k < this.netOutputSize; k++){
             this.errorTermNOVector[k] = this.net_out[k]*(1 - this.net_out[k])*
                         (this.y[example] - this.net_out[k]);
-            System.out.println(this.y[example] - this.net_out[k]);
         }
     }
     
@@ -165,17 +161,17 @@ public class NeuralNetwork {
                         this.x_out[i][j]);
             }
             // Modifying the threshold for the output neurons
-            this.wout[this.num_neurons][j] += calcDeltaWeight(this.errorTermNOVector[j],1);
+            this.wout[this.num_neurons][j] += calcDeltaWeight(this.errorTermNOVector[j],1.0);
         }
 
         // Now proceed with input unit weights
         for(int i = 0; i < this.num_neurons; i++){
             for(int j = 0; j < this.size_in; j++){
                 this.win[i][j] += calcDeltaWeight(this.errorTermHUVector[i],
-                        x_input[j]);
+                        x_input[j]);    
             }
             // Modifying the threshold for the input neurons
-            this.win[i][this.size_in] += calcDeltaWeight(this.errorTermHUVector[i],1);
+            this.win[i][this.size_in] += calcDeltaWeight(this.errorTermHUVector[i],1.0);
         }
     }
     
