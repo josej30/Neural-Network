@@ -53,9 +53,9 @@ public class NeuralNetwork {
             for(int j = 0; j < this.netOutputSize; j++){
                 double sign = randomGenerator.nextDouble();
                 if (sign > 0.5)
-                    wout[i][j] = randomGenerator.nextDouble()/10;
+                    wout[i][j] = randomGenerator.nextDouble();
                 else
-                    wout[i][j] = -1*randomGenerator.nextDouble()/10;
+                    wout[i][j] = -1*randomGenerator.nextDouble();
             }
         }
         
@@ -64,9 +64,9 @@ public class NeuralNetwork {
             for (int j=0;j<this.size_in+1;j++){
                 double sign = randomGenerator.nextDouble();
                 if (sign > 0.5)
-                    win[i][j] = randomGenerator.nextDouble()/10;
+                    win[i][j] = randomGenerator.nextDouble();
                 else
-                    win[i][j] = -1*randomGenerator.nextDouble()/10;
+                    win[i][j] = -1*randomGenerator.nextDouble();
             }
         
     }
