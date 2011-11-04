@@ -47,7 +47,7 @@ public class BackPropagation {
 
         
         double eta = 0.05;
-        int runs = 10000;
+        int runs = 1000;
 
         /*
          * 2 = neurons on the hidden layer

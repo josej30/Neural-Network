@@ -139,7 +139,6 @@ public class NeuralNetwork {
         for(int k = 0; k < this.netOutputSize; k++){
             this.errorTermNOVector[k] = this.net_out[k]*(1 - this.net_out[k])*
                         (this.y[example] - this.net_out[k]);
-            System.out.println(this.y[example] - this.net_out[k]);
         }
     }
     
@@ -151,6 +150,8 @@ public class NeuralNetwork {
             for(int j = 0; j < this.netOutputSize; j++){
                 sum += this.wout[i][j]*this.errorTermNOVector[j];
             }
+            // Adding the threshold
+            sum += this.wout[this.num_neurons][0]*this.errorTermNOVector[0];
             this.errorTermHUVector[i] = this.x_out[i][0]*(1-this.x_out[i][0])*sum;
         }
     }

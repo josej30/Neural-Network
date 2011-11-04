@@ -28,7 +28,7 @@ public class FileReader {
         Vector<String []> f = new Vector<String []>();
 
         try {
-            FileInputStream fstream = new FileInputStream("./"+
+            FileInputStream fstream = new FileInputStream("src/neuralnetwork/"+
                     filename);
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
