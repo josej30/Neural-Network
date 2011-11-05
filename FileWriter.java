@@ -34,7 +34,7 @@ public class FileWriter {
     public void write(String text) {
     
         try {
-                this.p.print (text);
+                this.p.println (text);
         }
         catch (Exception e) {
                 System.err.println ("Error writing to file");
