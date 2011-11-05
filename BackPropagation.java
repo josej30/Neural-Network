@@ -5,6 +5,7 @@
 
 package neuralnetwork;
 
+
 /**
  *
  * @author jose y lfundaro
@@ -83,10 +84,10 @@ public class BackPropagation {
                 fw2.closeFile();
         }
 
-        System.out.println("Right Classifications: "+right+ "("+(float)right/(float)X.length*100+"%)");
-        System.out.println("Wrong Classifications: "+wrong+ "("+(float)wrong/(float)X.length*100+"%)");
-
-
+        System.out.println("Right Classifications: "+right+ 
+                "("+(float)right/(float)X.length*100+"%)");
+        System.out.println("Wrong Classifications: "+wrong+ 
+                "("+(float)wrong/(float)X.length*100+"%)");
     }
 
 }
