@@ -25,7 +25,7 @@ public class BackPropagation {
 
         boolean output_file = true;
         
-        int num_neu = 2;
+        int num_neu = 4;
         int num_out = 1;
         int size_in = 2;
 
@@ -43,8 +43,8 @@ public class BackPropagation {
         int right = 0;
         int wrong = 0;
 
-        FileWriter fw_right = new FileWriter("right.txt");
-        FileWriter fw_wrong = new FileWriter("wrong.txt");
+        FileWriter fw1 = new FileWriter("data1.dat");
+        FileWriter fw2 = new FileWriter("data2.dat");
 
         for (int i=0; i<X.length; i++) {
 
@@ -54,34 +54,33 @@ public class BackPropagation {
             // Neural Network output
             double ans = nn.net_out[0];
 
-            if (((ans > 0.5) && (Y[i]==1.0)) || ((ans < 0.5) && (Y[i]==0.0))) {
+            if (((ans > 0.5) && (Y[i]==1.0)) || ((ans < 0.5) && (Y[i]==0.0)))
                 right++;
-
-                if (output_file) {
-                for (int j=0; j<2 ; j++){
-                    fw_right.write(X[i][j]+" ");
-                }
-                fw_right.write("\n");
-                }
-
-            }
-            else {
+            else
                 wrong++;
 
+            if (ans > 0.5) {
                 if (output_file) {
                 for (int j=0; j<2 ; j++){
-                    fw_wrong.write(X[i][j]+" ");
+                    fw1.write(X[i][j]+" ");
                 }
-                fw_wrong.write("\n");
+                fw1.write("\n");
                 }
-
+            }
+            else {
+                if (output_file) {
+                for (int j=0; j<2 ; j++){
+                    fw2.write(X[i][j]+" ");
+                }
+                fw2.write("\n");
+                }
             }
 
         }
 
         if (output_file) {
-                fw_right.closeFile();
-                fw_wrong.closeFile();
+                fw1.closeFile();
+                fw2.closeFile();
         }
 
         System.out.println("Right Classifications: "+right+ "("+(float)right/(float)X.length*100+"%)");
