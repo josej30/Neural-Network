@@ -26,7 +26,7 @@ public class BackPropagation {
 
         boolean output_file = true;
         
-        int num_neu = 4;
+        int num_neu = 8;
         int num_out = 1;
         int size_in = 2;
 
