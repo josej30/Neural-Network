@@ -49,9 +49,9 @@ public class ExampleGenerator {
         double check;
         while (i < this.size/2){
             while(true){
-                x = randomGenerator.nextDouble() % this.rxmax + 1;
-                y = randomGenerator.nextDouble() % this.rymax + 1;
-                check = Math.pow(x - 15, 2) + Math.pow(y - 6, 2);
+                x = randomGenerator.nextDouble()*(this.rxmax - this.rxmin + 1);
+                y = randomGenerator.nextDouble()*(this.rymax - this.rymin + 1);
+                check = Math.pow(x - 15, 2) + Math.pow(y - 6.0, 2);
                 if (check != 9.0) {
                     xrectangle[i] = x;
                     yrectangle[i] = y;
@@ -65,9 +65,9 @@ public class ExampleGenerator {
         i = 0;
         while (i < this.size/2) {
             while(true){
-                x = randomGenerator.nextDouble() % (this.cxmax - this.cxmin + 1)
+                x = randomGenerator.nextDouble()*(this.cxmax - this.cxmin + 1)
                         + this.cxmin;
-                y = randomGenerator.nextDouble() % (this.cymax - this.cymin + 1)
+                y = randomGenerator.nextDouble()*(this.cymax - this.cymin + 1)
                         + this.cymin;
                 check = Math.pow(x - 15, 2) + Math.pow(y - 6, 2);
                 if (check <= 9.0) {
