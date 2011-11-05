@@ -83,7 +83,7 @@ public class NeuralNetwork {
             // Running all the examples on the training set
             for (int example = 0; example<this.x_in.length; example++) {
                 // Running the neural network
-                feedforward(example);
+                feedforward(example,this.x_in);
 
                 // Backpropagating the errors
                 errorTermNO(example);
@@ -99,7 +99,7 @@ public class NeuralNetwork {
         } // Terminating condition reached
     }
 
-    void feedforward(int example) {
+    void feedforward(int example, double [][] x_in) {
 
         // Running all the hidden layer neurons
 
@@ -108,13 +108,13 @@ public class NeuralNetwork {
             double net = 0.0;
             // Loop over all the inputs/weights
             for (int j = 0; j<this.size_in; j++){
-                net += this.x_in[example][j]*win[i][j];
+                net += x_in[example][j]*this.win[i][j];
             }
             // Adding the threshold
             net += this.win[i][this.size_in];
             // Calculating "net" value for each hidden unit
             for(int k = 0; k < this.netOutputSize; k++){
-                this.x_out[i][k] = sigmoid(net);
+                x_out[i][k] = sigmoid(net);
             }
         }
 
@@ -124,7 +124,7 @@ public class NeuralNetwork {
             double netfinal = 0.0;
             // Loop over all the output layer neurons results
             for (int j = 0; j < this.num_neurons; j++){
-                netfinal += this.x_out[j][i]*this.wout[j][i];
+                netfinal += x_out[j][i]*this.wout[j][i];
             }
             // Adding the threshold
             netfinal += this.wout[this.num_neurons][i];

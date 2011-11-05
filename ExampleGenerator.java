@@ -5,6 +5,7 @@
 package neuralnetwork;
 
 import java.util.Random;
+import neuralnetwork.FileWriter;
 
 /**
  *
@@ -49,9 +50,9 @@ public class ExampleGenerator {
         double check;
         while (i < this.size/2){
             while(true){
-                x = randomGenerator.nextDouble() % this.rxmax + 1;
-                y = randomGenerator.nextDouble() % this.rymax + 1;
-                check = Math.pow(x - 15, 2) + Math.pow(y - 6, 2);
+                x = randomGenerator.nextDouble()*(this.rxmax - this.rxmin + 1);
+                y = randomGenerator.nextDouble()*(this.rymax - this.rymin + 1);
+                check = Math.pow(x - 15, 2) + Math.pow(y - 6.0, 2);
                 if (check != 9.0) {
                     xrectangle[i] = x;
                     yrectangle[i] = y;
@@ -65,9 +66,9 @@ public class ExampleGenerator {
         i = 0;
         while (i < this.size/2) {
             while(true){
-                x = randomGenerator.nextDouble() % (this.cxmax - this.cxmin + 1)
+                x = randomGenerator.nextDouble()*(this.cxmax - this.cxmin + 1)
                         + this.cxmin;
-                y = randomGenerator.nextDouble() % (this.cymax - this.cymin + 1)
+                y = randomGenerator.nextDouble()*(this.cymax - this.cymin + 1)
                         + this.cymin;
                 check = Math.pow(x - 15, 2) + Math.pow(y - 6, 2);
                 if (check <= 9.0) {
@@ -78,17 +79,19 @@ public class ExampleGenerator {
             }
             i++;
         }
-        System.out.println("Rectangle");
-        for(int k = 0; k < this.size/2; k++){
-            System.out.println("x = "+xrectangle[k]+", y = "+yrectangle[k]);
+        // Creating file
+        FileWriter f = new FileWriter(Integer.toString(this.size)+
+                "_validacion.txt");
+        // Writing rectangle's coordinates
+        for(int j = 0; j < this.size/2; j++){
+            f.write(Double.toString(xrectangle[j])+" "+
+                    Double.toString(yrectangle[j])+" A");
         }
-        System.out.println("Circle");
-        for(int k = 0; k < this.size/2; k++){
-            System.out.println("x = "+xcircle[k]+", y = "+ycircle[k]);
+        // Writing circle's coordinates
+        for(int j = 0; j < this.size/2; j++){
+            f.write(Double.toString(xcircle[j])+" "+
+                    Double.toString(ycircle[j])+" B");
         }
-
-        
-
     }
 
 }
