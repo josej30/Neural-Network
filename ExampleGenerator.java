@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package neural.network;
+package neuralnetwork;
 
 import java.util.Random;
 
@@ -86,6 +86,9 @@ public class ExampleGenerator {
         for(int k = 0; k < this.size/2; k++){
             System.out.println("x = "+xcircle[k]+", y = "+ycircle[k]);
         }
+
+        
+
     }
 
 }

@@ -5,7 +5,7 @@
 
 package neuralnetwork;
 
-import neural.network.ExampleGenerator;
+import neuralnetwork.ExampleGenerator;
 
 /**
  *
