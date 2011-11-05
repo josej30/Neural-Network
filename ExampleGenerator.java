@@ -5,6 +5,7 @@
 package neural.network;
 
 import java.util.Random;
+import neuralnetwork.FileWriter;
 
 /**
  *
@@ -78,14 +79,21 @@ public class ExampleGenerator {
             }
             i++;
         }
-        System.out.println("Rectangle");
-        for(int k = 0; k < this.size/2; k++){
-            System.out.println("x = "+xrectangle[k]+", y = "+yrectangle[k]);
+        // Creating file
+        FileWriter f = new FileWriter(Integer.toString(this.size)+
+                "_validacion.txt");
+        // Writing rectangle's coordinates
+        for(int j = 0; j < this.size/2; j++){
+            f.write(Double.toString(xrectangle[j])+" "+
+                    Double.toString(yrectangle[j])+" A");
         }
-        System.out.println("Circle");
-        for(int k = 0; k < this.size/2; k++){
-            System.out.println("x = "+xcircle[k]+", y = "+ycircle[k]);
+        // Writing circle's coordinates
+        for(int j = 0; j < this.size/2; j++){
+            f.write(Double.toString(xcircle[j])+" "+
+                    Double.toString(ycircle[j])+" B");
         }
+        
+        f.closeFile();
     }
 
 }
